@@ -19,11 +19,11 @@ The main actors in the model are:
 
 - **Store** : a singleton that contains _reduce()_ function. Not like _Store_ in redux, this _Store_ does not hold states of application but it acts like:
 
-    - `Reducer` carrier
+    - *Reducer* carrier
     
     - Point communication between components (fragments, activity)
 
-- **Reducer** : a pure function that takes _Action_ as input and return _State_. This is where all core logics happen, so to keep it maintenable and testable, there are things that should never happen in _reduce()_ function:
+- **Reducer** : in redux, _Reducer_ forms an object with an unique function `reduce()`. However, in this model, object `Reducer` no longer exists but its magic method `reduce()` is integrated directly in _Store_.This method is a pure function that takes _Action_ as input and return _State_. This is where all core logics happen, so to keep it maintenable and testable, there are things that should never happen in _reduce()_ function:
 
     - Mutate the arguments
     
@@ -38,6 +38,8 @@ To keep an certain abstraction level, some base classes are created to perform t
 - **BaseView** (BaseFragment, BaseActivity):  Each View is defined with 3 dependencies: type of Action, type of State and type Store. As a typical element in _View_ part, _BaseView_ provides _dispatch()_ and _render()_ method. It contains a _Store_ reference and probably a _ViewModel_ one (or shareViewModel) corresponding (if there is state management in this view). This _ViewModel_ will be passed to xml to benefit the feature of _DataBinding_.
 
 - **BaseViewModel**: this is a Lifecyle observer because its lifecycle depends on the lifecyle of its _View_ it is attached to. Since this component is also in _View_ part, so _BaseViewModel_ provides also _dispatch()_ and _render()_ and hold a reference of _Store_. On top of that, it may (or _should_ because purpose of its existence is to manage states of View) contain states.
+
+- **render()**: there is one remark about this method is that you should never be called this outside of a flow. State will not be changed without an action dispatched
 
 - **BaseStore**: except some core elements like _reduce()_ method mentionned above, _BaseStore_ contains a *Dispatcher* which does some pre-setup (like provide the executor for action) for every action dispatched. Moreover, _BaseStore_ provides methods to *subscribe* and *unsubscribe* state changes. _BaseStore_ is a singleton at the level of module (I'm not sure wheather _"module"_ describes exactly what I mean but like a process that can work isolately from other. For instance, in my projects, authentification (login/enregister/password foggotten etc..) is a process, main flow is another one, payment is too etc.., and each module contain only one Activity so the Store depends on the lifecycle of that container Activity).
 
@@ -62,4 +64,15 @@ To start a flow:
 - And then, you are good
 
 # Analyse
-#### 1. Avantage
+####  Avantage
+- This model takes benefits of **unidirectionnal flow**:
+    - Easier to debug because at any point of a flow, you know where it comes from
+    - System of Action/State helps you have more control over your data
+    
+- Core logics of application are situated in Store within `reduce()` method, and the fact that this is a _pure-function_ makes it obviously easy to test.
+
+- Communication between components is done with helps of Public/Subscribe pattern, it makes the system loosely coupled and avoids mixing Android framework codes with Java code -> good for maintaintability and testability
+
+#### Disadvantage
+
+- Many class generated (Action/State) when you want to execute a flow. It's getting hard to manage _Action_ and _State_ classes when system becomes more and more large
