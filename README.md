@@ -47,6 +47,8 @@ To keep an certain abstraction level, some base classes are created to perform t
 
 # Flow (what you have to really do after having all base classes ready)
 
+![Image of diagram flow](resources/diagram_flow.png)
+
 To start a flow:
 
 - Describe what you want to do by defining an Action class with the required data input
