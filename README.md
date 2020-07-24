@@ -4,7 +4,7 @@ Base classes for MVI architecture
 
 This model is inspired by Redux and Flux model. Some core actors stay the same as in Redux but some of their behaviors may change adapting the requirements of Android environnement. The idea, as Flux's creation's purpose, revolves around a **strict unidirectional data flow**. 
 
-[Image of diagram class](https://github.com/lamphama2/mvi_base/tree/master/resources/diagram_class.png)
+[Image of diagram class](resources/diagram_class.png)
 
 The main actors in the model are:
 
