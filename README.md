@@ -47,7 +47,7 @@ To keep a certain abstraction level, some base classes are created to perform th
 - **BaseStore**: except some core elements like `reduce()` method mentionned above, _BaseStore_ contains a *Dispatcher* which does some pre-setup (things like providing executor for action) for every action dispatched. Moreover, _BaseStore_ provides methods to *subscribe* and *unsubscribe* to state changes. _BaseStore_ is a singleton at module level. 
 
 \* I'm not sure whether _"module"_ describes exactly what I meant. However, imagine a process that can work independently. For instance, in my projects, there are different processes: authentification (login/register/password reset), main flow, payment, etc. Since each module contains only one Activity, the Store depends on the lifecycle of that Activity.
-- **reduce()**: knowing that I'm currently using RxJava for my threading and reactivité handling, so `reduce()` is a chain of Rx operators starting from an _Observable\<Action\>_ and returning an _Observable\<State\>_
+- **reduce()**: since I'm currently using RxJava for threading and reactivity handling, `reduce()` acts as chain of Rx operators starting from an _Observable\<Action\>_ and returning an _Observable\<State\>_
   
 - **Dispatcher**: it filters the action received from _View_ and prepares environment for the execution.
 
