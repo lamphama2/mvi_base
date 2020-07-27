@@ -26,7 +26,7 @@ The main actors in the model are:
     
     - a communication point between _View_ components (fragments, activity)
 
-- **Reducer** : in redux, _Reducer_ forms an object with a unique function which is `reduce()`. However, in this model, object `Reducer` no longer exists but its magic method `reduce()` is integrated directly in _Store_.This method is a pure function that takes _Action_ as input and returns _State_. This is where all core logics happen. Hence, to keep it maintainable and testable, there are certain things that should never happen in `reduce()` function:
+- **Reducer** : in redux, _Reducer_ forms an object with a unique function which is `reduce()`. However, in this model, object `Reducer` no longer exists but its magic method `reduce()` is integrated directly in _Store_. This method is a _pure-function_ that takes _Action_ as input and returns _State_. This is where all core logics happen. Hence, to keep it maintainable and testable, there are certain things that should never happen in `reduce()` function:
 
     - Mutate the arguments
     
