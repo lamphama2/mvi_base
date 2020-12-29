@@ -14,7 +14,7 @@ The main actors in the model are:
 
     - Typically, _View_ performs all actions related to UI. On top of that, it helps to bind data from _ViewModel_ to UI
 
-    - Relation between _View_ - _ViewModel_ is : `n..1`
+    - Relation between _View_ - _ViewModel_ is : `n..1` (`n..n` can also work, sometimes a view need more than 1 ViewModel to manage its states, but it's not really necessary)
 
 - **Action** : this defines what will happen. Unlike in Redux, Action carries and transfers the current state of view
 
